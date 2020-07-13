@@ -10,13 +10,13 @@
   , runid          = 'RUNID' 
   , ice_ic         = 'cice5_model.res.nc'
   , restart        = .true.
-  , restart_ext    = .false.
+  , restart_ext    = .true.
   , use_restart_time = USE_RESTART_TIME
   , restart_format = 'nc'
   , lcdf64         = .false.
-  , restart_dir    = './restart/'
+  , restart_dir    = './RESTART/'
   , restart_file   = 'iced'
-  , pointer_file   = './restart/ice.restart_file'
+  , pointer_file   = './ice.restart_file'
   , dumpfreq       = 'DUMPFREQ'
   , dumpfreq_n     =  DUMPFREQ_N
   , dump_last      = .false.  
@@ -43,8 +43,8 @@
 &grid_nml
     grid_format  = 'nc'
   , grid_type    = 'displaced_pole'
-  , grid_file    = 'grid_cice_NEMS.nc'
-  , kmt_file     = 'kmtu_cice_NEMS.nc'
+  , grid_file    = 'grid_cice_NEMS_mx050.nc'
+  , kmt_file     = 'kmtu_cice_NEMS_mx050.nc'
   , kcatbound    = 0
 /
 
