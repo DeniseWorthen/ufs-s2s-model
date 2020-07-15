@@ -16,7 +16,6 @@ list(APPEND mom6_src_files
   MOM6/src/ALE/coord_zlike.F90
   MOM6/src/ALE/polynomial_functions.F90
   MOM6/src/ALE/regrid_consts.F90
-  MOM6/src/ALE/regrid_edge_slopes.F90
   MOM6/src/ALE/regrid_edge_values.F90
   MOM6/src/ALE/regrid_interp.F90
   MOM6/src/ALE/regrid_solvers.F90
@@ -26,7 +25,6 @@ list(APPEND mom6_src_files
   MOM6/src/core/MOM_PressureForce.F90
   MOM6/src/core/MOM_PressureForce_Montgomery.F90
   MOM6/src/core/MOM_PressureForce_analytic_FV.F90
-  MOM6/src/core/MOM_PressureForce_blocked_AFV.F90
   MOM6/src/core/MOM_barotropic.F90
   MOM6/src/core/MOM_boundary_update.F90
   MOM6/src/core/MOM_checksum_packages.F90
@@ -94,6 +92,7 @@ list(APPEND mom6_src_files
   MOM6/src/equation_of_state/TEOS10/gsw_t_freezing_poly.f90
   MOM6/src/equation_of_state/TEOS10/gsw_t_from_ct.f90
 
+  MOM6/src/framework/MOM_array_transform.F90
   MOM6/src/framework/MOM_checksums.F90
   MOM6/src/framework/MOM_coms.F90
   MOM6/src/framework/MOM_constants.F90
@@ -112,11 +111,13 @@ list(APPEND mom6_src_files
   MOM6/src/framework/MOM_horizontal_regridding.F90
   MOM6/src/framework/MOM_intrinsic_functions.F90
   MOM6/src/framework/MOM_io.F90
+  MOM6/src/framework/MOM_random.F90
   MOM6/src/framework/MOM_restart.F90
   MOM6/src/framework/MOM_safe_alloc.F90
   MOM6/src/framework/MOM_spatial_means.F90
   MOM6/src/framework/MOM_string_functions.F90
   MOM6/src/framework/MOM_time_manager.F90
+  MOM6/src/framework/MOM_transform_FMS.F90
   MOM6/src/framework/MOM_unit_scaling.F90
   MOM6/src/framework/MOM_write_cputime.F90
 
@@ -133,8 +134,6 @@ list(APPEND mom6_src_files
   MOM6/src/initialization/MOM_shared_initialization.F90
   MOM6/src/initialization/MOM_state_initialization.F90
   MOM6/src/initialization/MOM_tracer_initialization_from_Z.F90
-
-  MOM6/src/initialization/midas_vertmap.F90
 
   MOM6/src/parameterizations/lateral/MOM_MEKE.F90
   MOM6/src/parameterizations/lateral/MOM_MEKE_types.F90
