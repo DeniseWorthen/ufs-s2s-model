@@ -2,7 +2,7 @@
    the Modular Ocean Model (MOM6), a numerical ocean model developed at NOAA-GFDL.
    Where appropriate, parameters use usually given in MKS units.
 
-   This particular file is for the example in OM4_05.
+   This particular file is for the example in OM4_025.
 
    This MOM_input file typically contains only the non-default values that are
    needed to reproduce this example.  A full list of parameters for this example
@@ -31,7 +31,7 @@ DT_THERM = DT_THERM_MOM6        !   [s] default = 1800.0
                                 ! THERMO_SPANS_COUPLING is true, in which case DT_THERM
                                 ! can be an integer multiple of the coupling timestep.  By
                                 ! default DT_THERM is set to DT.
-THERMO_SPANS_COUPLING = MOM6_THERMO_SPAN    !   [Boolean] default = False
+THERMO_SPANS_COUPLING = MOM6_THERMO_SPAN   !   [Boolean] default = False
                                 ! If true, the MOM will take thermodynamic and tracer
                                 ! timesteps that can be longer than the coupling timestep.
                                 ! The actual thermodynamic timestep that is used in this
@@ -40,7 +40,7 @@ THERMO_SPANS_COUPLING = MOM6_THERMO_SPAN    !   [Boolean] default = False
 HFREEZE = 20.0                  !   [m] default = -1.0
                                 ! If HFREEZE > 0, melt potential will be computed. The actual depth
                                 ! over which melt potential is computed will be min(HFREEZE, OBLD)
-                                ! where OBLD is the boundary layer depth. If HFREEZE <= 0 (default)
+                                ! where OBLD is the boundary layer depth. If HFREEZE <= 0 (default) 
                                 ! melt potential will not be computed.
 FRAZIL = True                   !   [Boolean] default = False
                                 ! If true, water freezes if it gets too cold, and the
@@ -58,7 +58,7 @@ C_P = 3992.0                    !   [J kg-1 K-1] default = 3991.86795711963
                                 ! constant. This is only used if ENABLE_THERMODYNAMICS is
                                 ! true. The default value is from the TEOS-10 definition
                                 ! of conservative temperature.
-CHECK_BAD_SURFACE_VALS = True   !   [Boolean] default = False
+CHECK_BAD_SURFACE_VALS = False  !   [Boolean] default = False
                                 ! If true, check the surface state for ridiculous values.
 BAD_VAL_SSH_MAX = 50.0          !   [m] default = 20.0
                                 ! The value of SSH above which a bad value message is
@@ -77,7 +77,10 @@ WRITE_GEOM = 2                  ! default = 1
                                 ! If =1, write the geometry and vertical grid files only for
                                 ! a new simulation. If =2, always write the geometry and
                                 ! vertical grid files. Other values are invalid.
-
+SAVE_INITIAL_CONDS = True       !   [Boolean] default = False
+                                ! If true, write the initial conditions to a file given by IC_OUTPUT_FILE.
+IC_OUTPUT_FILE = "MOM_IC"       ! default = "MOM_IC"
+                                ! The file into which to write the initial conditions.
 ! === module MOM_domains ===
 TRIPOLAR_N = True               !   [Boolean] default = False
                                 ! Use tripolar connectivity at the northern edge of the
@@ -150,13 +153,93 @@ MINIMUM_DEPTH = 9.5             !   [m] default = 0.0
                                 ! MINIMUM_DEPTH is assumed to be land and all fluxes are masked out.
                                 ! If MASKING_DEPTH is specified, then all depths shallower than
                                 ! MINIMUM_DEPTH but deeper than MASKING_DEPTH are rounded to MINIMUM_DEPTH.
+THICKNESS_CONFIG = "thickness_file"       !
+                                ! A string that determines how the initial layer
+                                ! thicknesses are specified for a new run:
+                                !     file - read interface heights from the file specified
+                                !     thickness_file - read thicknesses from the file specified
+                                !       by (THICKNESS_FILE).
+                                !     coord - determined by ALE coordinate.
+                                !     uniform - uniform thickness layers evenly distributed
+                                !       between the surface and MAXIMUM_DEPTH.
+                                !     DOME - use a slope and channel configuration for the
+                                !       DOME sill-overflow test case.
+                                !     benchmark - use the benchmark test case thicknesses.
+                                !     search - search a density profile for the interface
+                                !       densities. This is not yet implemented.
+                                !     circle_obcs - the circle_obcs test case is used.
+                                !     DOME2D - 2D version of DOME initialization.
+                                !     adjustment2d - TBD AJA.
+                                !     sloshing - TBD AJA.
+                                !     seamount - TBD AJA.
+                                !     rossby_front - a mixed layer front in thermal wind balance.
+                                !     USER - call a user modified routine.
+THICKNESS_FILE = "MOM6.mx050.res.nc" !
+                                ! The name of the thickness file.
+ADJUST_THICKNESS = True         !   [Boolean] default = False
+                                ! If true, all mass below the bottom removed if the topography is shallower than
+                                ! the thickness input file would indicate.
+TS_CONFIG = "file"              !
+                                ! A string that determines how the initial tempertures
+                                ! and salinities are specified for a new run:
+                                !     file - read velocities from the file specified
+                                !       by (TS_FILE).
+                                !     fit - find the temperatures that are consistent with
+                                !       the layer densities and salinity S_REF.
+                                !     TS_profile - use temperature and salinity profiles
+                                !       (read from TS_FILE) to set layer densities.
+                                !     benchmark - use the benchmark test case T & S.
+                                !     linear - linear in logical layer space.
+                                !     DOME2D - 2D DOME initialization.
+                                !     adjustment2d - TBD AJA.
+                                !     sloshing - TBD AJA.
+                                !     seamount - TBD AJA.
+                                !     rossby_front - a mixed layer front in thermal wind balance.
+                                !     SCM_ideal_hurr - used in the SCM idealized hurricane test.
+                                !     USER - call a user modified routine.
+TS_FILE = "MOM6.mx050.res.nc" !
+                                ! The initial condition file for temperature.
+TEMP_IC_VAR = "Temp"
+SALT_IC_VAR = "Salt"
+VELOCITY_CONFIG = "file"        !
+                                ! A string that determines how the initial velocities
+                                ! are specified for a new run:
+                                !     file - read velocities from the file specified
+                                !       by (VELOCITY_FILE).
+                                !     zero - the fluid is initially at rest.
+                                !     uniform - the flow is uniform (determined by
+                                !       parameters INITIAL_U_CONST and INITIAL_V_CONST).
+                                !     rossby_front - a mixed layer front in thermal wind balance.
+                                !     soliton - Equatorial Rossby soliton.
+                                !     USER - call a user modified routine.", default="zero"
+VELOCITY_FILE = "MOM6.mx050.res.nc" !
+                                ! The initial condition file for velocities.
+
+SURFACE_HEIGHT_IC_FILE =  "MOM6.mx050.res.nc" !
+SURFACE_HEIGHT_IC_VAR = "sfc"
+
+CONVERT_THICKNESS_UNITS = True !   [Boolean] default = True
+                                ! If true,  convert the thickness initial conditions from units of m to kg m-2
+                                ! or vice versa, depending on whether BOUSSINESQ is defined. This does not apply
+                                ! if a restart file is read.
+DEPRESS_INITIAL_SURFACE = True  !   [Boolean] default = False
+                                ! If true,  depress the initial surface to avoid huge tsunamis when a large
+                                ! surface pressure is applied.
+REGRID_ACCELERATE_INIT = True   !   [Boolean] default = False
+                                ! If true, runs REGRID_ACCELERATE_ITERATIONS iterations of the regridding
+                                ! algorithm to push the initial grid to be consistent with the initial
+                                ! condition. Useful only for state-based and iterative coordinates.
+REGRID_ACCELERATE_ITERATIONS = 10 ! default = 1
+                                ! The number of regridding iterations to perform to generate an initial grid
+                                ! that is consistent with the initial conditions.
 GRID_ROTATION_ANGLE_BUGS = False  ! [Boolean] default = True
-                                ! If true, use an older algorithm to calculate the sine and
+                                ! If true, use an older algorithm to calculate the sine and 
                                 ! cosines needed rotate between grid-oriented directions and
                                 ! true north and east.  Differences arise at the tripolar fold
 USE_TRIPOLAR_GEOLONB_BUG = False  ! [Boolean] default = True
-                                ! If true, use older code that incorrectly sets the longitude
+                                ! If true, use older code that incorrectly sets the longitude 
                                 ! in some points along the tripolar fold to be off by 360 degrees
+
 ! === module MOM_open_boundary ===
 ! Controls where open boundaries are located, what kind of boundary condition to impose, and what data to apply, if any.
 MASKING_DEPTH = 0.0             !   [m] default = -9999.0
@@ -188,6 +271,7 @@ DTFREEZE_DP = -7.75E-08         !   [deg C Pa-1] default = 0.0
 PARALLEL_RESTARTFILES = True    !   [Boolean] default = False
                                 ! If true, each processor writes its own restart file,
                                 ! otherwise a single restart file is generated
+
 RESTART_CHECKSUMS_REQUIRED= False
 
 ! === module MOM_tracer_flow_control ===
@@ -298,7 +382,7 @@ REMAPPING_SCHEME = "PPM_H4"     ! default = "PLM"
 ! Parameters providing information about the lateral grid.
 
 ! === module MOM_state_initialization ===
-INIT_LAYERS_FROM_Z_FILE = True  !   [Boolean] default = False
+INIT_LAYERS_FROM_Z_FILE = False !   [Boolean] default = False
                                 ! If true, intialize the layer thicknesses, temperatures,
                                 ! and salnities from a Z-space file on a latitude-
                                 ! longitude grid.
@@ -321,7 +405,7 @@ Z_INIT_ALE_REMAPPING = True     !   [Boolean] default = False
 
 ! === module MOM_diag_mediator ===
 !Jiande NUM_DIAG_COORDS = 2             ! default = 1
-NUM_DIAG_COORDS = 1             ! default = 1
+NUM_DIAG_COORDS = 1
                                 ! The number of diagnostic vertical coordinates to use.
                                 ! For each coordinate, an entry in DIAG_COORDS must be provided.
 !Jiande DIAG_COORDS = "z Z ZSTAR", "rho2 RHO2 RHO" !
@@ -595,7 +679,6 @@ KHTH_USE_FGNV_STREAMFUNCTION = True !   [Boolean] default = False
 FGNV_FILTER_SCALE = 0.1         !   [not defined] default = 1.0
                                 ! A coefficient scaling the vertical smoothing term in the
                                 ! Ferrari et al., 2010, streamfunction formulation.
-
 ! === module MOM_mixed_layer_restrat ===
 MIXEDLAYER_RESTRAT = True       !   [Boolean] default = False
                                 ! If true, a density-gradient dependent re-stratifying
@@ -834,7 +917,7 @@ VAR_PEN_SW = True               !   [Boolean] default = False
                                 ! If true, use one of the CHL_A schemes specified by
                                 ! OPACITY_SCHEME to determine the e-folding depth of
                                 ! incoming short wave radiation.
-CHL_FILE = CHLCLIM              ! CHL_FILE is the file containing chl_a concentrations in
+CHL_FILE = CHLCLIM    ! CHL_FILE is the file containing chl_a concentrations in
                                 ! the variable CHL_A. It is used when VAR_PEN_SW and
                                 ! CHL_FROM_FILE are true.
 CHL_VARNAME = "chlor_a"         ! default = "CHL_A"
@@ -872,7 +955,12 @@ OCEAN_SURFACE_STAGGER = "A"     ! default = "C"
                                 ! staggering of the surface velocity field that is
                                 ! returned to the coupler.  Valid values include
                                 ! 'A', 'B', or 'C'.
+
 ! === module MOM_sum_output ===
+CALCULATE_APE = False           !   [Boolean] default = True
+                                ! If true, calculate the available potential energy of
+                                ! the interfaces.  Setting this to false reduces the
+                                ! memory footprint of high-PE-count models dramatically.
 MAXTRUNC = 100000               !   [truncations save_interval-1] default = 0
                                 ! The run will be stopped, and the day set to a very
                                 ! large value if the velocity is truncated more than
@@ -912,5 +1000,6 @@ LIQUID_RUNOFF_FROM_DATA = MOM6_RIVER_RUNOFF  !   [Boolean] default = False
                                 ! If true, allows liquid river runoff to be specified via
                                 ! the data_table using the component name 'OCN'.
 ! === module MOM_restart ===
+
 
 ! === module MOM_file_parser ===
