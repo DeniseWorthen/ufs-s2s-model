@@ -2,7 +2,7 @@
    the Modular Ocean Model (MOM6), a numerical ocean model developed at NOAA-GFDL.
    Where appropriate, parameters use usually given in MKS units.
 
-   This particular file is for the example in OM4_025.
+   This particular file is for the example in OM4_05.
 
    This MOM_input file typically contains only the non-default values that are
    needed to reproduce this example.  A full list of parameters for this example
@@ -31,7 +31,7 @@ DT_THERM = DT_THERM_MOM6        !   [s] default = 1800.0
                                 ! THERMO_SPANS_COUPLING is true, in which case DT_THERM
                                 ! can be an integer multiple of the coupling timestep.  By
                                 ! default DT_THERM is set to DT.
-THERMO_SPANS_COUPLING = MOM6_THERMO_SPAN   !   [Boolean] default = False
+THERMO_SPANS_COUPLING = MOM6_THERMO_SPAN    !   [Boolean] default = False
                                 ! If true, the MOM will take thermodynamic and tracer
                                 ! timesteps that can be longer than the coupling timestep.
                                 ! The actual thermodynamic timestep that is used in this
@@ -40,7 +40,7 @@ THERMO_SPANS_COUPLING = MOM6_THERMO_SPAN   !   [Boolean] default = False
 HFREEZE = 20.0                  !   [m] default = -1.0
                                 ! If HFREEZE > 0, melt potential will be computed. The actual depth
                                 ! over which melt potential is computed will be min(HFREEZE, OBLD)
-                                ! where OBLD is the boundary layer depth. If HFREEZE <= 0 (default) 
+                                ! where OBLD is the boundary layer depth. If HFREEZE <= 0 (default)
                                 ! melt potential will not be computed.
 FRAZIL = True                   !   [Boolean] default = False
                                 ! If true, water freezes if it gets too cold, and the
@@ -222,24 +222,23 @@ CONVERT_THICKNESS_UNITS = True !   [Boolean] default = True
                                 ! If true,  convert the thickness initial conditions from units of m to kg m-2
                                 ! or vice versa, depending on whether BOUSSINESQ is defined. This does not apply
                                 ! if a restart file is read.
-DEPRESS_INITIAL_SURFACE = True  !   [Boolean] default = False
+DEPRESS_INITIAL_SURFACE = False  !   [Boolean] default = False
                                 ! If true,  depress the initial surface to avoid huge tsunamis when a large
                                 ! surface pressure is applied.
 REGRID_ACCELERATE_INIT = True   !   [Boolean] default = False
                                 ! If true, runs REGRID_ACCELERATE_ITERATIONS iterations of the regridding
                                 ! algorithm to push the initial grid to be consistent with the initial
                                 ! condition. Useful only for state-based and iterative coordinates.
-REGRID_ACCELERATE_ITERATIONS = 10 ! default = 1
+REGRID_ACCELERATE_ITERATIONS = 1 ! default = 1
                                 ! The number of regridding iterations to perform to generate an initial grid
                                 ! that is consistent with the initial conditions.
 GRID_ROTATION_ANGLE_BUGS = False  ! [Boolean] default = True
-                                ! If true, use an older algorithm to calculate the sine and 
+                                ! If true, use an older algorithm to calculate the sine and
                                 ! cosines needed rotate between grid-oriented directions and
                                 ! true north and east.  Differences arise at the tripolar fold
 USE_TRIPOLAR_GEOLONB_BUG = False  ! [Boolean] default = True
-                                ! If true, use older code that incorrectly sets the longitude 
+                                ! If true, use older code that incorrectly sets the longitude
                                 ! in some points along the tripolar fold to be off by 360 degrees
-
 ! === module MOM_open_boundary ===
 ! Controls where open boundaries are located, what kind of boundary condition to impose, and what data to apply, if any.
 MASKING_DEPTH = 0.0             !   [m] default = -9999.0
@@ -271,8 +270,6 @@ DTFREEZE_DP = -7.75E-08         !   [deg C Pa-1] default = 0.0
 PARALLEL_RESTARTFILES = True    !   [Boolean] default = False
                                 ! If true, each processor writes its own restart file,
                                 ! otherwise a single restart file is generated
-
-RESTART_CHECKSUMS_REQUIRED= False
 
 ! === module MOM_tracer_flow_control ===
 USE_IDEAL_AGE_TRACER = False    !   [Boolean] default = False
@@ -405,7 +402,7 @@ Z_INIT_ALE_REMAPPING = True     !   [Boolean] default = False
 
 ! === module MOM_diag_mediator ===
 !Jiande NUM_DIAG_COORDS = 2             ! default = 1
-NUM_DIAG_COORDS = 1
+NUM_DIAG_COORDS = 1             ! default = 1
                                 ! The number of diagnostic vertical coordinates to use.
                                 ! For each coordinate, an entry in DIAG_COORDS must be provided.
 !Jiande DIAG_COORDS = "z Z ZSTAR", "rho2 RHO2 RHO" !
@@ -679,6 +676,7 @@ KHTH_USE_FGNV_STREAMFUNCTION = True !   [Boolean] default = False
 FGNV_FILTER_SCALE = 0.1         !   [not defined] default = 1.0
                                 ! A coefficient scaling the vertical smoothing term in the
                                 ! Ferrari et al., 2010, streamfunction formulation.
+
 ! === module MOM_mixed_layer_restrat ===
 MIXEDLAYER_RESTRAT = True       !   [Boolean] default = False
                                 ! If true, a density-gradient dependent re-stratifying
@@ -955,7 +953,7 @@ OCEAN_SURFACE_STAGGER = "A"     ! default = "C"
                                 ! staggering of the surface velocity field that is
                                 ! returned to the coupler.  Valid values include
                                 ! 'A', 'B', or 'C'.
-
+RESTART_CHECKSUMS_REQUIRED = False
 ! === module MOM_sum_output ===
 CALCULATE_APE = False           !   [Boolean] default = True
                                 ! If true, calculate the available potential energy of
@@ -1000,6 +998,5 @@ LIQUID_RUNOFF_FROM_DATA = MOM6_RIVER_RUNOFF  !   [Boolean] default = False
                                 ! If true, allows liquid river runoff to be specified via
                                 ! the data_table using the component name 'OCN'.
 ! === module MOM_restart ===
-
 
 ! === module MOM_file_parser ===
