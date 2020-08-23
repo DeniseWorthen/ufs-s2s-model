@@ -191,8 +191,6 @@ PARALLEL_RESTARTFILES = True    !   [Boolean] default = False
                                 ! If true, each processor writes its own restart file,
                                 ! otherwise a single restart file is generated
 
-RESTART_CHECKSUMS_REQUIRED= False
-
 ! === module MOM_tracer_flow_control ===
 USE_IDEAL_AGE_TRACER = False    !   [Boolean] default = False
                                 ! If true, use the ideal_age_example tracer package.
@@ -809,7 +807,7 @@ VAR_PEN_SW = True               !   [Boolean] default = False
                                 ! If true, use one of the CHL_A schemes specified by
                                 ! OPACITY_SCHEME to determine the e-folding depth of
                                 ! incoming short wave radiation.
-CHL_FILE = CHLCLIM    ! CHL_FILE is the file containing chl_a concentrations in
+CHL_FILE = CHLCLIM              ! CHL_FILE is the file containing chl_a concentrations in
                                 ! the variable CHL_A. It is used when VAR_PEN_SW and
                                 ! CHL_FROM_FILE are true.
 CHL_VARNAME = "chlor_a"         ! default = "CHL_A"
@@ -874,7 +872,7 @@ LIQUID_RUNOFF_FROM_DATA = MOM6_RIVER_RUNOFF  !   [Boolean] default = False
                                 ! If true, allows liquid river runoff to be specified via
                                 ! the data_table using the component name 'OCN'.
 ! === module MOM_restart ===
-
+RESTART_CHECKSUMS_REQUIRED = False
 ! === module MOM_sum_output ===
 CALCULATE_APE = False           !   [Boolean] default = True
                                 ! If true, calculate the available potential energy of

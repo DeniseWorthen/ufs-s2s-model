@@ -76,7 +76,7 @@ runSeq::
 # CMEPS variables
 
 DRIVER_attributes::
-      mediator_read_restart = .true.
+      mediator_read_restart = @[use_coldstart]
 ::
 MED_attributes::
       ATM_model = @[atm_model]
@@ -97,4 +97,6 @@ ALLCOMP_attributes::
       restart_n = @[FV3_RESTART_INTERVAL]
       restart_option = nhours
       restart_ymd = -999
+      dbug_flag = @[cap_dbug_flag]
+      use_coldstart = @[use_coldstart]
 ::

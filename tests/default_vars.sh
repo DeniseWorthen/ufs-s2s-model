@@ -89,6 +89,14 @@ elif [[ $MACHINE_ID = hera.* ]]; then
   THRD_cpl_wwav=1; WPG_cpl_wwav=24; MPB_cpl_wwav="0 287"; APB_cpl_wwav="0 311"
   OPB_cpl_wwav="312 431"; IPB_cpl_wwav="432 479"; WPB_cpl_wwav="480 519"
 
+  TASKS_cpl_c192=288; TPN_cpl_c192=40; INPES_cpl_c192=4; JNPES_cpl_c192=8
+  THRD_cpl_c192=1; WPG_cpl_c192=12;  MPB_cpl_c192="0 191"; APB_cpl_c192="0 203"
+  OPB_cpl_c192="204 263"; IPB_cpl_c192="264 287"
+
+  TASKS_cpl_c096=192; TPN_cpl_c096=40; INPES_cpl_c096=3; JNPES_cpl_c096=8
+  THRD_cpl_c096=1; WPG_cpl_c096=6;  MPB_cpl_c096="0 143"; APB_cpl_c096="0 149"
+  OPB_cpl_c096="150 179"; IPB_cpl_c096="180 191"
+
 elif [[ $MACHINE_ID = jet.* ]]; then
 
   TASKS_dflt=150 ; TPN_dflt=24 ; INPES_dflt=3 ; JNPES_dflt=8
@@ -300,6 +308,8 @@ export atm_model="fv3"
 export ocn_model="mom6"
 export ice_model="cice6"
 export wav_model="ww3"
+export cap_dbug_flag="0"
+export use_coldstart="true"
 # MOM6 river runoff 
 export MOM6_RIVER_RUNOFF='True'
 # set USE_LA_LI2016 to the current default; this must be set False for restart repro 
@@ -321,7 +331,7 @@ export USE_RESTART_TIME='.false.'
 # set false for CICE6
 export RESTART_EXT='.false'
 # resolution dependent files
-export MESHICE='tx${ICERES}v1_190204_ESMFmesh.nc'
+export MESHICE="mesh.mx${OCNRES}.nc"
 export CICEGRID="grid_cice_NEMS_mx${OCNRES}.nc"
 export CICEMASK="kmtu_cice_NEMS_mx${OCNRES}.nc"
 export CHLCLIM="seawifs-clim-1997-2010.${NX_GLB}x${NY_GLB}.v20180328.nc"
