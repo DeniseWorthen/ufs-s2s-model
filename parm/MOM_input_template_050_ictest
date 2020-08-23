@@ -222,7 +222,7 @@ CONVERT_THICKNESS_UNITS = True !   [Boolean] default = True
                                 ! If true,  convert the thickness initial conditions from units of m to kg m-2
                                 ! or vice versa, depending on whether BOUSSINESQ is defined. This does not apply
                                 ! if a restart file is read.
-DEPRESS_INITIAL_SURFACE = False  !   [Boolean] default = False
+DEPRESS_INITIAL_SURFACE = True  !   [Boolean] default = False
                                 ! If true,  depress the initial surface to avoid huge tsunamis when a large
                                 ! surface pressure is applied.
 REGRID_ACCELERATE_INIT = True   !   [Boolean] default = False

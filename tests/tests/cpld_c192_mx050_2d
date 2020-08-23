@@ -61,8 +61,8 @@ export LIST_FILES="phyf048.tile1.nc \
 export_fv3
 export_cpl
 
-export DAYS="2"
-export FHMAX="48"
+export DAYS="5"
+export FHMAX="120"
 export FDIAG="6"
 export WLCLK=30
 
@@ -110,7 +110,7 @@ export atm_petlist_bounds=$APB_cpl_c192
 export ocn_petlist_bounds=$OPB_cpl_c192
 export ice_petlist_bounds=$IPB_cpl_c192
 
-export MOM_INPUT=MOM_input_template_${OCNRES}
+export MOM_INPUT=MOM_input_template_${OCNRES}_ictest
 export MESHICE="mesh.mx${OCNRES}.nc"
 export CICEGRID="grid_cice_NEMS_mx${OCNRES}.nc"
 export CICEMASK="kmtu_cice_NEMS_mx${OCNRES}.nc"
@@ -131,7 +131,7 @@ export MOM6_REPRO_LA='False'
 export MOM6_THERMO_SPAN='False'
 # use one step coldstart
 export use_coldstart="false"
-export debug_flag='1'
+export debug_flag='0'
 
 # nems.configure
 export NEMS_CONFIGURE="nems.configure.medcmeps_atm_ocn_ice.IN"
