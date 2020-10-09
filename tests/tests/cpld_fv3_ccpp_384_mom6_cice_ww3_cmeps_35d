@@ -9,7 +9,7 @@ export_cpl
 
 export SYEAR
 export SMONTH
-export SDAY="01"
+export SDAY
 export SHOUR="00"
 
 export DAYS="0.041666666"

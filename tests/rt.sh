@@ -58,12 +58,14 @@ rt_single() {
 rt_35d() {
   local sy=$(echo ${DATE_35D} | cut -c 1-4)
   local sm=$(echo ${DATE_35D} | cut -c 5-6)
+  local sd=$(echo ${DATE_35D} | cut -c 7-8)
   local new_test_name="tests/${TEST_NAME}_${DATE_35D}"
   rm -f tests/$new_test_name
   cp tests/$TEST_NAME $new_test_name
 
     sed -i -e "s/\(export SYEAR\)/\1=\"$sy\"/" $new_test_name
     sed -i -e "s/\(export SMONTH\)/\1=\"$sm\"/" $new_test_name
+    sed -i -e "s/\(export SDAY\)/\1=\"$sd\"/" $new_test_name
     DEP_RUN=${DEP_RUN}_${DATE_35D}
 
   TEST_NAME=${new_test_name#tests/}
