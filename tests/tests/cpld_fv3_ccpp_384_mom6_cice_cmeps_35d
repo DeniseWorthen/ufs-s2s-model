@@ -12,8 +12,10 @@ export SMONTH
 export SDAY="01"
 export SHOUR="00"
 
-export DAYS="35"
-export FHMAX="840"
+export DAYS="0.041666666"
+export FHMAX="1"
+#export DAYS="35"
+#export FHMAX="840"
 export FDIAG="6"
 export WLCLK=480
 
@@ -50,14 +52,15 @@ export CPL_SLOW=${DT_THERM_MOM6}
 export CPL_FAST=${DT_ATMOS}
 
 # write a CICE restart at DAYS
-export DUMPFREQ_N=${DAYS}
-export DUMPFREQ="d"
+export DUMPFREQ_N=${FHMAX}
+export DUMPFREQ="h"
 
 # CMEPS controls intervals in ALLCOMP
 export FV3_RESTART_INTERVAL=${FHMAX}
 
 # nems.configure
-export NEMS_CONFIGURE="nems.configure.medcmeps_atm_ocn_ice.IN"
+export NEMS_CONFIGURE="nems.configure.medcoldcmeps_atm_ocn_ice.IN"
+#export NEMS_CONFIGURE="nems.configure.medcmeps_atm_ocn_ice.IN"
 export coupling_interval_slow_sec=${CPL_SLOW}
 export coupling_interval_fast_sec=${CPL_FAST}
 export MOM_INPUT=MOM_input_template_${OCNRES}

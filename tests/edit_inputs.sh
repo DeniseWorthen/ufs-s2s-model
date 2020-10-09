@@ -2,10 +2,10 @@
 set -eu
 
 function edit_ice_in {
-  if [[ $DUMPFREQ == h ]]; then
-    DUMPFREQ_N=$(( DUMPFREQ_N*3600 ))
-    DUMPFREQ="s"
-  fi
+  #if [[ $DUMPFREQ == h ]]; then
+  #  DUMPFREQ_N=$(( DUMPFREQ_N*3600 ))
+  #  DUMPFREQ="s"
+  #fi
 
   jday=$(date -d "${SYEAR}-${SMONTH}-${SDAY} ${SHOUR}:00:00" +%j)
   istep0=$(( ((10#$jday-1)*86400 + 10#$SHOUR*3600) / DT_CICE ))
