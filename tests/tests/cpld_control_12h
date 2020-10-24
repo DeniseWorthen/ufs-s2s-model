@@ -5,6 +5,7 @@
 export TEST_DESCR="Fully coupled FV3-CCPP-MOM6-CICE-CMEPS system - C96MX100 12h"
 
 export CNTL_DIR="cpld_control_12h"
+export CNTLMED_DIR="cpld_control_12h"
 
 export LIST_FILES="phyf012.tile1.nc \
                    phyf012.tile2.nc \

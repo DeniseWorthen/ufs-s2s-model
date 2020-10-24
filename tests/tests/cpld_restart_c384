@@ -5,6 +5,7 @@
 export TEST_DESCR="Fully coupled FV3-CCPP-MOM6-CICE-CMEPS system - C384MX025 - 12h restart"
 
 export CNTL_DIR="cpld_control_c384"
+export CNTLMED_DIR="cpld_control_c384"
 
 export LIST_FILES="phyf024.tile1.nc \
                    phyf024.tile2.nc \
